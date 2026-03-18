@@ -12,6 +12,7 @@ __pycache__/
 
 # Model weights
 *.pth
+*.pt
 
 # Unused models and examples
 data/models/flower-vgg19/

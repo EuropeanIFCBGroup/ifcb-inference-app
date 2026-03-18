@@ -20,16 +20,37 @@ NUM_TOP_CLASSES = 5
 MODELS_DIR = os.path.join(BASE_DIR, 'data', 'models')
 
 
+def _find_weights_file(model_dir):
+    for ext in ('weights.pth', 'weights.pt'):
+        path = os.path.join(model_dir, ext)
+        if os.path.isfile(path):
+            return path
+    return None
+
+
 def discover_models():
     models_found = {}
     for name in sorted(os.listdir(MODELS_DIR), reverse=True):
         model_dir = os.path.join(MODELS_DIR, name)
-        if (os.path.isdir(model_dir)
-                and os.path.isfile(os.path.join(model_dir, 'classes.txt'))
-                and os.path.isfile(os.path.join(model_dir, 'weights.pth'))):
+        if not os.path.isdir(model_dir):
+            continue
+        weights_path = _find_weights_file(model_dir)
+        if weights_path is None:
+            continue
+        has_classes_txt = os.path.isfile(os.path.join(model_dir, 'classes.txt'))
+        has_embedded_classes = _weights_have_class_names(weights_path)
+        if has_classes_txt or has_embedded_classes:
             display_name = name.replace('-', ' ')
             models_found[display_name] = name
     return models_found
+
+
+def _weights_have_class_names(weights_path):
+    try:
+        data = torch.load(weights_path, map_location='cpu', weights_only=False)
+        return isinstance(data, dict) and 'class_names' in data
+    except Exception:
+        return False
 
 
 AVAILABLE_MODELS = discover_models()
@@ -43,16 +64,24 @@ def load_labels(path):
         return [line.strip().strip("'").strip() for line in f if line.strip()]
 
 
+def _load_weights(weights_path):
+    data = torch.load(weights_path, map_location=DEVICE, weights_only=False)
+    if isinstance(data, dict) and 'state_dict' in data:
+        return data['state_dict'], data.get('class_names')
+    return data, None
+
+
 def build_resnet50(num_classes, weights_path):
     net = models.resnet50()
     net.fc = torch.nn.Linear(net.fc.in_features, num_classes)
-    state_dict = torch.load(weights_path, map_location=DEVICE, weights_only=True)
+    state_dict, _ = _load_weights(weights_path)
     net.load_state_dict(state_dict)
     net.eval()
     return net.to(DEVICE)
 
 
 image_transform = transforms.Compose([
+    transforms.Grayscale(num_output_channels=3),
     transforms.ToImage(),
     transforms.ToDtype(torch.float32, scale=True),
     SquarePad(),
@@ -66,19 +95,29 @@ def format_label(name):
 
 def load_thresholds(path, labels):
     if not os.path.exists(path):
-        return {}, {}
+        return {}, {}, {}
     with open(path, 'r') as f:
         data = json.load(f)
     thresholds = {}
-    for idx_str, metrics in data.get("class_metrics", {}).items():
-        idx = int(idx_str)
-        if idx < len(labels):
-            thresholds[labels[idx]] = metrics["threshold"]
+    class_details = {}
+    for key, metrics in data.get("class_metrics", {}).items():
+        if key.isdigit():
+            idx = int(key)
+            label = labels[idx] if idx < len(labels) else None
+        else:
+            label = key
+        if label is None:
+            continue
+        thresholds[label] = metrics["threshold"]
+        class_details[label] = {
+            "f1": metrics.get("f1"),
+            "support": metrics.get("support"),
+        }
     meta = {
         k: v for k, v in data.items()
         if k != "class_metrics"
     }
-    return thresholds, meta
+    return thresholds, meta, class_details
 
 
 def get_model(name=None):
@@ -90,14 +129,24 @@ def get_model(name=None):
     dir_name = AVAILABLE_MODELS[name]
     model_dir = os.path.join(BASE_DIR, 'data', 'models', dir_name)
 
-    labels = load_labels(os.path.join(model_dir, 'classes.txt'))
-    net = build_resnet50(len(labels), os.path.join(model_dir, 'weights.pth'))
-    thresholds, threshold_meta = load_thresholds(
+    weights_path = _find_weights_file(model_dir)
+    classes_path = os.path.join(model_dir, 'classes.txt')
+
+    if os.path.isfile(classes_path):
+        labels = load_labels(classes_path)
+    else:
+        _, embedded_names = _load_weights(weights_path)
+        labels = list(embedded_names)
+
+    net = build_resnet50(len(labels), weights_path)
+    thresholds, threshold_meta, class_details = load_thresholds(
         os.path.join(model_dir, 'thresholds.json'), labels
     )
     num_params = sum(p.numel() for p in net.parameters())
 
-    _loaded_models[name] = (labels, net, thresholds, threshold_meta, num_params)
+    _loaded_models[name] = (
+        labels, net, thresholds, threshold_meta, num_params, class_details
+    )
     return _loaded_models[name]
 
 
@@ -106,7 +155,7 @@ def render_predictions(predictions, model_name=None):
         return '<div class="pred-panel"><p class="pred-empty">No predictions</p></div>'
 
     if model_name:
-        _, _, class_thresholds, _, _ = get_model(model_name)
+        _, _, class_thresholds, _, _, _ = get_model(model_name)
     else:
         class_thresholds = {}
 
@@ -163,7 +212,7 @@ async def predict(image, model_name=None):
     if image is None:
         return {}
 
-    labels, net, _, _, _ = get_model(model_name)
+    labels, net, _, _, _, _ = get_model(model_name)
 
     image_rgb = image.convert('RGB')
     tensor = image_transform(image_rgb).unsqueeze(0).to(DEVICE)
@@ -188,7 +237,7 @@ async def predict_scores(image, model_name=None):
     preds = await predict(image, model_name=model_name)
     if not preds:
         return {"class_labels": [], "scores": []}
-    labels, _, _, _, _ = get_model(model_name)
+    labels, _, _, _, _, _ = get_model(model_name)
     ordered_labels = list(labels)
     ordered_scores = [preds.get(label, 0.0) for label in ordered_labels]
     return {"class_labels": ordered_labels, "scores": ordered_scores}
@@ -209,7 +258,7 @@ def get_thresholds(model_name=None):
     """
     if model_name is None:
         model_name = DEFAULT_MODEL
-    labels, _, thresholds, _, _ = get_model(model_name)
+    labels, _, thresholds, _, _, _ = get_model(model_name)
     return {
         "class_labels": list(labels),
         "thresholds": thresholds,
@@ -218,10 +267,31 @@ def get_thresholds(model_name=None):
 
 
 def build_about_markdown(model_name=None):
-    labels, _, _, threshold_meta, num_params = get_model(model_name)
-    class_list = "\n".join(
-        f"1. {format_label(name)}" for name in labels
+    labels, _, _, threshold_meta, num_params, class_details = get_model(
+        model_name
     )
+
+    header = (
+        "| # | Class | F1 | Train | Test |\n"
+        "|---|-------|---:|------:|-----:|\n"
+    )
+    rows = []
+    for i, name in enumerate(labels, 1):
+        details = class_details.get(name, {})
+        f1 = details.get("f1")
+        support = details.get("support")
+        f1_str = f"{f1:.2f}" if f1 is not None else "-"
+        if support is not None:
+            train_str = str(support * 4)
+            test_str = str(support)
+        else:
+            train_str = "-"
+            test_str = "-"
+        rows.append(
+            f"| {i} | {format_label(name)} "
+            f"| {f1_str} | {train_str} | {test_str} |"
+        )
+    class_list = header + "\n".join(rows)
     meta_model_name = threshold_meta.get("model_name", "")
     model_name_line = f"- **Model name:** {meta_model_name}\n" if meta_model_name else ""
 
