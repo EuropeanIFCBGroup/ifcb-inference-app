@@ -13,7 +13,7 @@ A [web application](https://irfcb-classify.hf.space/) for running inference on p
 
 ## Models
 
-The app auto-discovers models from the `data/models/` directory. Each model needs a subdirectory containing `weights.pth`, `classes.txt`, and optionally `thresholds.json` and `about.md`. Model weights are not included in the repository — contact the author to obtain them.
+The app auto-discovers models from the `data/models/` directory. Each model needs a subdirectory containing `weights.pth`/`weights.pt`, and optionally `thresholds.json`, `classes.txt` (if classes are not stored together weights and thresholds) and `about.md`. Model weights are not included in the GitHub repository — contact the author to obtain them.
 
 The included example configuration (SMHI-NIVA-ResNet50-V5) expects:
 
@@ -24,7 +24,7 @@ The included example configuration (SMHI-NIVA-ResNet50-V5) expects:
 
 ### Training your own model
 
-This app is inference-only. To train your own PyTorch classification model for IFCB data, see [IFCBClassify_DEMO](https://github.com/EuropeanIFCBGroup/IFCBClassify_DEMO). Once trained, place the exported `weights.pth` and a classlist (`classes.txt`) in a new subdirectory under `data/models/` and the app will pick it up automatically.
+This app is inference-only. To train your own PyTorch classification model for IFCB data, see [IFCBClassify_DEMO](https://github.com/EuropeanIFCBGroup/IFCBClassify_DEMO) or [ifcb-pytorch-classify](https://github.com/nodc-sweden/ifcb-pytorch-classify). Once trained, place the exported `weights.pth`/`weights.pt` and an optional classlist (`classes.txt`) in a new subdirectory under `data/models/` and the app will pick it up automatically.
 
 ## Requirements
 
@@ -39,7 +39,7 @@ The default `requirements.txt` installs CPU-only PyTorch. The app automatically 
 pip install -r requirements.txt
 
 # Then reinstall PyTorch with CUDA (check https://pytorch.org/get-started for the latest commands)
-pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu124 # Use your CUDA version
 ```
 
 ## Local Setup
