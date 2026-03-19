@@ -266,7 +266,29 @@ css = """
     color: var(--color-accent, #3b82f6);
     font-weight: 500;
     min-height: 0;
-    display: none;
+}
+#zip-status:empty { display: none; }
+.upload-progress-track {
+    height: 6px;
+    background: var(--neutral-200, #e5e7eb);
+    border-radius: 3px;
+    margin-top: 6px;
+    overflow: hidden;
+}
+.upload-progress-fill {
+    height: 100%;
+    background: var(--color-accent, #3b82f6);
+    border-radius: 3px;
+    transition: width 0.2s ease;
+}
+.upload-progress-fill.indeterminate {
+    width: 30% !important;
+    animation: indeterminate 1.2s ease-in-out infinite;
+}
+@keyframes indeterminate {
+    0% { margin-left: 0%; }
+    50% { margin-left: 70%; }
+    100% { margin-left: 0%; }
 }
 .pred-panel {
     padding: 12px 0;
@@ -341,8 +363,57 @@ css = """
 
 init_js = """
 () => {
-    /* Disable buttons and show status as soon as a ZIP file is selected,
-       before the upload transfer finishes. */
+    /* Show upload progress as soon as a ZIP is selected, before Gradio
+       fires any Python callbacks. Uses XMLHttpRequest monkey-patching
+       to capture real upload progress from Gradio's internal requests. */
+
+    let activeUploadSize = 0;
+
+    function setUploadStatus(html) {
+        const el = document.querySelector('#zip-status');
+        if (el) el.innerHTML = html;
+    }
+
+    function disableButtons() {
+        const cb = document.querySelector('#classify-btn button');
+        const zb = document.querySelector('#zip-btn button');
+        if (cb) { cb.disabled = true; cb.style.opacity = '0.5'; }
+        if (zb) { zb.disabled = true; zb.style.opacity = '0.5'; }
+    }
+
+    /* Monkey-patch XHR to track upload progress for large payloads */
+    const OrigXHR = XMLHttpRequest;
+    function PatchedXHR() {
+        const xhr = new OrigXHR();
+        if (activeUploadSize > 0) {
+            const sizeMB = (activeUploadSize / (1024 * 1024)).toFixed(1);
+            xhr.upload.addEventListener('progress', (e) => {
+                if (e.lengthComputable && activeUploadSize > 0) {
+                    const pct = Math.round((e.loaded / e.total) * 100);
+                    const loadedMB = (e.loaded / (1024 * 1024)).toFixed(1);
+                    setUploadStatus(
+                        'Uploading ZIP — ' + loadedMB + ' / ' + sizeMB + ' MB (' + pct + '%)' +
+                        '<div class="upload-progress-track"><div class="upload-progress-fill" style="width:' + pct + '%"></div></div>'
+                    );
+                }
+            });
+            xhr.upload.addEventListener('load', () => {
+                if (activeUploadSize > 0) {
+                    activeUploadSize = 0;
+                    setUploadStatus(
+                        'Processing ZIP file…' +
+                        '<div class="upload-progress-track"><div class="upload-progress-fill indeterminate"></div></div>'
+                    );
+                }
+            });
+        }
+        return xhr;
+    }
+    PatchedXHR.prototype = OrigXHR.prototype;
+    Object.keys(OrigXHR).forEach(k => { PatchedXHR[k] = OrigXHR[k]; });
+    window.XMLHttpRequest = PatchedXHR;
+
+    /* Watch for the file input inside the upload button */
     const observer = new MutationObserver(() => {
         const zipBtn = document.querySelector('#zip-btn');
         if (!zipBtn) return;
@@ -351,16 +422,14 @@ init_js = """
         fileInput.dataset.listening = '1';
         fileInput.addEventListener('change', () => {
             if (!fileInput.files || fileInput.files.length === 0) return;
-            const classifyBtn = document.querySelector('#classify-btn button');
-            const uploadBtn = zipBtn.querySelector('button');
-            if (classifyBtn) { classifyBtn.disabled = true; classifyBtn.style.opacity = '0.5'; }
-            if (uploadBtn) { uploadBtn.disabled = true; uploadBtn.style.opacity = '0.5'; }
-            const statusEl = document.querySelector('#zip-status');
-            if (statusEl) {
-                const sizeMB = (fileInput.files[0].size / (1024 * 1024)).toFixed(1);
-                statusEl.textContent = 'Uploading ZIP (' + sizeMB + ' MB)…';
-                statusEl.style.display = 'block';
-            }
+            const file = fileInput.files[0];
+            activeUploadSize = file.size;
+            disableButtons();
+            const sizeMB = (file.size / (1024 * 1024)).toFixed(1);
+            setUploadStatus(
+                'Uploading ZIP (' + sizeMB + ' MB)…' +
+                '<div class="upload-progress-track"><div class="upload-progress-fill indeterminate"></div></div>'
+            );
         });
     });
     observer.observe(document.body, { childList: true, subtree: true });
