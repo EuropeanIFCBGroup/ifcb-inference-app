@@ -24,3 +24,6 @@ data/examples/
 # OS
 .DS_Store
 Thumbs.db
+
+# Tests
+tests/

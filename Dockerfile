@@ -24,7 +24,10 @@ COPY pyproject.toml $HOME/app/pyproject.toml
 COPY main.py $HOME/app/main.py
 COPY model.py $HOME/app/model.py
 COPY session.py $HOME/app/session.py
-COPY utils/ $HOME/app/utils
+COPY viewer.py $HOME/app/viewer.py
+COPY preprocessing.py $HOME/app/preprocessing.py
+COPY architectures.py $HOME/app/architectures.py
+COPY checkpoints.py $HOME/app/checkpoints.py
 COPY data/ $HOME/app/data
 
 RUN pip install --no-cache-dir -r requirements.txt \
