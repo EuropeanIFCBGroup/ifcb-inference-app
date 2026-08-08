@@ -1,0 +1,1418 @@
+{
+    "model_name": "V6_1-resnet50_dataset_squarepad_augmented_b64_lr0.0001_e30",
+    "best_epoch": 22,
+    "num_classes": 176,
+    "validation_transform": "dataset_squarepad",
+    "class_metrics": {
+        "Actinocyclus_spp": {
+            "class_name": "Actinocyclus_spp",
+            "threshold": 0.2016104906797409,
+            "f1": 0.9,
+            "precision": 0.8709677419354839,
+            "recall": 0.9310344827586207,
+            "support": 29
+        },
+        "Air_bubbles": {
+            "class_name": "Air_bubbles",
+            "threshold": 0.001037058886140585,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 353
+        },
+        "Akashiwo_sanguinea": {
+            "class_name": "Akashiwo_sanguinea",
+            "threshold": 0.7728778719902039,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 29
+        },
+        "Akinete": {
+            "class_name": "Akinete",
+            "threshold": 0.4110961854457855,
+            "f1": 0.96,
+            "precision": 0.9230769230769231,
+            "recall": 1.0,
+            "support": 12
+        },
+        "Alexandrium_pseudogonyaulax": {
+            "class_name": "Alexandrium_pseudogonyaulax",
+            "threshold": 0.5652909278869629,
+            "f1": 0.9253731343283582,
+            "precision": 0.9393939393939394,
+            "recall": 0.9117647058823529,
+            "support": 34
+        },
+        "Amphidinium-Katodinium": {
+            "class_name": "Amphidinium-Katodinium",
+            "threshold": 0.47330212593078613,
+            "f1": 0.6842105263157895,
+            "precision": 0.5777777777777777,
+            "recall": 0.8387096774193549,
+            "support": 31
+        },
+        "Amphidinium-Katodinium2": {
+            "class_name": "Amphidinium-Katodinium2",
+            "threshold": 0.94798344373703,
+            "f1": 0.8431372549019608,
+            "precision": 0.7818181818181819,
+            "recall": 0.9148936170212766,
+            "support": 47
+        },
+        "Amphidinium-like": {
+            "class_name": "Amphidinium-like",
+            "threshold": 0.9098943471908569,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 42
+        },
+        "Amphidinium_crassum": {
+            "class_name": "Amphidinium_crassum",
+            "threshold": 0.9683780670166016,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 19
+        },
+        "Amylax_triacantha": {
+            "class_name": "Amylax_triacantha",
+            "threshold": 0.05242939293384552,
+            "f1": 0.972972972972973,
+            "precision": 0.9473684210526315,
+            "recall": 1.0,
+            "support": 18
+        },
+        "Apedinella_radians": {
+            "class_name": "Apedinella_radians",
+            "threshold": 0.9349631071090698,
+            "f1": 0.9657534246575342,
+            "precision": 0.9929577464788732,
+            "recall": 0.94,
+            "support": 150
+        },
+        "Aphanizomenon_flosaquae_bundle": {
+            "class_name": "Aphanizomenon_flosaquae_bundle",
+            "threshold": 0.12797562777996063,
+            "f1": 0.9265175718849841,
+            "precision": 0.90625,
+            "recall": 0.9477124183006536,
+            "support": 153
+        },
+        "Aphanizomenon_flosaquae_filament": {
+            "class_name": "Aphanizomenon_flosaquae_filament",
+            "threshold": 0.6801093816757202,
+            "f1": 0.9933683969814773,
+            "precision": 0.9917808219178083,
+            "recall": 0.9949610627576729,
+            "support": 2183
+        },
+        "Apocalathium_malmogiense": {
+            "class_name": "Apocalathium_malmogiense",
+            "threshold": 0.9983410835266113,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 75
+        },
+        "Asterionellopsis_glacialis": {
+            "class_name": "Asterionellopsis_glacialis",
+            "threshold": 0.5215268135070801,
+            "f1": 0.9957211175434181,
+            "precision": 0.9969758064516129,
+            "recall": 0.9944695827048768,
+            "support": 1989
+        },
+        "Asterionellopsis_glacialis_single": {
+            "class_name": "Asterionellopsis_glacialis_single",
+            "threshold": 0.5100894570350647,
+            "f1": 0.8627450980392157,
+            "precision": 0.88,
+            "recall": 0.8461538461538461,
+            "support": 26
+        },
+        "Attheya_spp": {
+            "class_name": "Attheya_spp",
+            "threshold": 0.9720763564109802,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 107
+        },
+        "Beads": {
+            "class_name": "Beads",
+            "threshold": 0.9963120818138123,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 35
+        },
+        "Binuclearia_lauterbornii": {
+            "class_name": "Binuclearia_lauterbornii",
+            "threshold": 0.539208173751831,
+            "f1": 0.92,
+            "precision": 0.9583333333333334,
+            "recall": 0.8846153846153846,
+            "support": 26
+        },
+        "Calciopappus_sp": {
+            "class_name": "Calciopappus_sp",
+            "threshold": 0.6175545454025269,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 69
+        },
+        "Centrales_single": {
+            "class_name": "Centrales_single",
+            "threshold": 0.3498629629611969,
+            "f1": 0.9526288391462779,
+            "precision": 0.9432989690721649,
+            "recall": 0.9621451104100947,
+            "support": 951
+        },
+        "Cerataulina_pelagica": {
+            "class_name": "Cerataulina_pelagica",
+            "threshold": 0.3891558051109314,
+            "f1": 0.9671261930010604,
+            "precision": 0.96,
+            "recall": 0.9743589743589743,
+            "support": 468
+        },
+        "Chaetoceros_cf_convolutus": {
+            "class_name": "Chaetoceros_cf_convolutus",
+            "threshold": 0.920897364616394,
+            "f1": 0.9800307219662059,
+            "precision": 0.9725609756097561,
+            "recall": 0.9876160990712074,
+            "support": 323
+        },
+        "Chaetoceros_contortus": {
+            "class_name": "Chaetoceros_contortus",
+            "threshold": 0.026933884248137474,
+            "f1": 0.84,
+            "precision": 0.7777777777777778,
+            "recall": 0.9130434782608695,
+            "support": 23
+        },
+        "Chaetoceros_curvisetus_Chaetoceros_debilis": {
+            "class_name": "Chaetoceros_curvisetus_Chaetoceros_debilis",
+            "threshold": 0.33643481135368347,
+            "f1": 0.8864468864468864,
+            "precision": 0.9453125,
+            "recall": 0.8344827586206897,
+            "support": 145
+        },
+        "Chaetoceros_danicus": {
+            "class_name": "Chaetoceros_danicus",
+            "threshold": 0.18586613237857819,
+            "f1": 0.972972972972973,
+            "precision": 0.9773755656108597,
+            "recall": 0.968609865470852,
+            "support": 223
+        },
+        "Chaetoceros_decipiens": {
+            "class_name": "Chaetoceros_decipiens",
+            "threshold": 0.47205275297164917,
+            "f1": 0.9393939393939394,
+            "precision": 0.96875,
+            "recall": 0.9117647058823529,
+            "support": 68
+        },
+        "Chaetoceros_diadema": {
+            "class_name": "Chaetoceros_diadema",
+            "threshold": 0.9986672401428223,
+            "f1": 0.8076923076923077,
+            "precision": 1.0,
+            "recall": 0.6774193548387096,
+            "support": 31
+        },
+        "Chaetoceros_spp_chain": {
+            "class_name": "Chaetoceros_spp_chain",
+            "threshold": 0.44434982538223267,
+            "f1": 0.9890021025392205,
+            "precision": 0.9870863599677159,
+            "recall": 0.9909252957381299,
+            "support": 6171
+        },
+        "Chaetoceros_spp_single": {
+            "class_name": "Chaetoceros_spp_single",
+            "threshold": 0.20859555900096893,
+            "f1": 0.8823529411764706,
+            "precision": 0.9,
+            "recall": 0.8653846153846154,
+            "support": 52
+        },
+        "Chaetoceros_tenuissimus-like": {
+            "class_name": "Chaetoceros_tenuissimus-like",
+            "threshold": 0.9908543825149536,
+            "f1": 0.918918918918919,
+            "precision": 0.9444444444444444,
+            "recall": 0.8947368421052632,
+            "support": 38
+        },
+        "Chlorococcales": {
+            "class_name": "Chlorococcales",
+            "threshold": 0.2125895917415619,
+            "f1": 0.9473684210526315,
+            "precision": 0.9,
+            "recall": 1.0,
+            "support": 9
+        },
+        "Chroococcales": {
+            "class_name": "Chroococcales",
+            "threshold": 0.03134855255484581,
+            "f1": 0.9907407407407407,
+            "precision": 0.9907407407407407,
+            "recall": 0.9907407407407407,
+            "support": 108
+        },
+        "Chroococcus_spp": {
+            "class_name": "Chroococcus_spp",
+            "threshold": 0.9295505285263062,
+            "f1": 0.9930555555555556,
+            "precision": 0.9930555555555556,
+            "recall": 0.9930555555555556,
+            "support": 144
+        },
+        "Chrysochromulina_lanceolata": {
+            "class_name": "Chrysochromulina_lanceolata",
+            "threshold": 0.9581474661827087,
+            "f1": 0.9964912280701754,
+            "precision": 1.0,
+            "recall": 0.993006993006993,
+            "support": 143
+        },
+        "Chrysochromulina_parkeae": {
+            "class_name": "Chrysochromulina_parkeae",
+            "threshold": 0.5885169506072998,
+            "f1": 0.994413407821229,
+            "precision": 1.0,
+            "recall": 0.9888888888888889,
+            "support": 90
+        },
+        "Ciliophora": {
+            "class_name": "Ciliophora",
+            "threshold": 0.7747541666030884,
+            "f1": 0.9460916442048517,
+            "precision": 0.9460916442048517,
+            "recall": 0.9460916442048517,
+            "support": 1484
+        },
+        "Cocconeis-like": {
+            "class_name": "Cocconeis-like",
+            "threshold": 0.04417087137699127,
+            "f1": 0.96,
+            "precision": 0.9230769230769231,
+            "recall": 1.0,
+            "support": 12
+        },
+        "Cochlodinium-like": {
+            "class_name": "Cochlodinium-like",
+            "threshold": 0.7164705991744995,
+            "f1": 0.9565217391304348,
+            "precision": 0.9603174603174603,
+            "recall": 0.952755905511811,
+            "support": 127
+        },
+        "Corethron": {
+            "class_name": "Corethron",
+            "threshold": 0.9918727278709412,
+            "f1": 0.9989888776541962,
+            "precision": 0.997979797979798,
+            "recall": 1.0,
+            "support": 494
+        },
+        "Coscinodiscus_spp": {
+            "class_name": "Coscinodiscus_spp",
+            "threshold": 0.05607575178146362,
+            "f1": 0.9354838709677419,
+            "precision": 0.9354838709677419,
+            "recall": 0.9354838709677419,
+            "support": 31
+        },
+        "Cryptomonadales": {
+            "class_name": "Cryptomonadales",
+            "threshold": 0.8770139813423157,
+            "f1": 0.9411764705882353,
+            "precision": 0.9491525423728814,
+            "recall": 0.9333333333333333,
+            "support": 120
+        },
+        "Cryptophyta": {
+            "class_name": "Cryptophyta",
+            "threshold": 0.36746644973754883,
+            "f1": 0.9917122752150117,
+            "precision": 0.9927989981214778,
+            "recall": 0.9906279287722587,
+            "support": 3201
+        },
+        "Cyclotella_spp": {
+            "class_name": "Cyclotella_spp",
+            "threshold": 0.5334920287132263,
+            "f1": 0.9322033898305084,
+            "precision": 0.9322033898305084,
+            "recall": 0.9322033898305084,
+            "support": 59
+        },
+        "Cylindrotheca_closterium_Nitzschia_longissima": {
+            "class_name": "Cylindrotheca_closterium_Nitzschia_longissima",
+            "threshold": 0.17231757938861847,
+            "f1": 0.9877384196185286,
+            "precision": 0.9837177747625508,
+            "recall": 0.9917920656634747,
+            "support": 731
+        },
+        "Cymbomonas_tetramitiformis": {
+            "class_name": "Cymbomonas_tetramitiformis",
+            "threshold": 0.994855523109436,
+            "f1": 0.9743589743589743,
+            "precision": 0.9743589743589743,
+            "recall": 0.9743589743589743,
+            "support": 39
+        },
+        "Dactyliosolen_fragilissimus": {
+            "class_name": "Dactyliosolen_fragilissimus",
+            "threshold": 0.22770078480243683,
+            "f1": 0.983206106870229,
+            "precision": 0.9817073170731707,
+            "recall": 0.9847094801223242,
+            "support": 654
+        },
+        "Debris": {
+            "class_name": "Debris",
+            "threshold": 0.6696825623512268,
+            "f1": 0.9446891825746452,
+            "precision": 0.9423828125,
+            "recall": 0.9470068694798822,
+            "support": 1019
+        },
+        "Diatoma_tenuis-like_chain": {
+            "class_name": "Diatoma_tenuis-like_chain",
+            "threshold": 0.49699291586875916,
+            "f1": 0.9983388704318937,
+            "precision": 0.9966832504145937,
+            "recall": 1.0,
+            "support": 1202
+        },
+        "Diatoma_tenuis-like_single_cell": {
+            "class_name": "Diatoma_tenuis-like_single_cell",
+            "threshold": 0.46374210715293884,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 82
+        },
+        "Dictyocha_fibula": {
+            "class_name": "Dictyocha_fibula",
+            "threshold": 0.7151784896850586,
+            "f1": 0.9795918367346939,
+            "precision": 0.9795918367346939,
+            "recall": 0.9795918367346939,
+            "support": 441
+        },
+        "Dictyochales": {
+            "class_name": "Dictyochales",
+            "threshold": 0.05919056758284569,
+            "f1": 0.9861111111111112,
+            "precision": 0.993006993006993,
+            "recall": 0.9793103448275862,
+            "support": 145
+        },
+        "Dictyochales_transformation": {
+            "class_name": "Dictyochales_transformation",
+            "threshold": 0.3348378539085388,
+            "f1": 0.8260869565217391,
+            "precision": 0.8260869565217391,
+            "recall": 0.8260869565217391,
+            "support": 23
+        },
+        "Dinobryon_spp": {
+            "class_name": "Dinobryon_spp",
+            "threshold": 0.9186124205589294,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 526
+        },
+        "Dinophyceae": {
+            "class_name": "Dinophyceae",
+            "threshold": 0.40368518233299255,
+            "f1": 0.683495145631068,
+            "precision": 0.7394957983193278,
+            "recall": 0.6353790613718412,
+            "support": 277
+        },
+        "Dinophyceae_larger_than_30": {
+            "class_name": "Dinophyceae_larger_than_30",
+            "threshold": 0.6319570541381836,
+            "f1": 0.5925925925925926,
+            "precision": 0.7272727272727273,
+            "recall": 0.5,
+            "support": 16
+        },
+        "Dinophyceae_pair": {
+            "class_name": "Dinophyceae_pair",
+            "threshold": 0.07829157263040543,
+            "f1": 0.96,
+            "precision": 0.96,
+            "recall": 0.96,
+            "support": 25
+        },
+        "Dinophyceae_smaller_than_30": {
+            "class_name": "Dinophyceae_smaller_than_30",
+            "threshold": 0.5982246994972229,
+            "f1": 0.9219573400250941,
+            "precision": 0.9263741805345436,
+            "recall": 0.9175824175824175,
+            "support": 2002
+        },
+        "Dinophysis_acuminata": {
+            "class_name": "Dinophysis_acuminata",
+            "threshold": 0.8660072684288025,
+            "f1": 0.9600447052249231,
+            "precision": 0.9592406476828588,
+            "recall": 0.9608501118568232,
+            "support": 1788
+        },
+        "Dinophysis_acuta": {
+            "class_name": "Dinophysis_acuta",
+            "threshold": 0.052794672548770905,
+            "f1": 0.972972972972973,
+            "precision": 0.9473684210526315,
+            "recall": 1.0,
+            "support": 18
+        },
+        "Dinophysis_norvegica": {
+            "class_name": "Dinophysis_norvegica",
+            "threshold": 0.002869230229407549,
+            "f1": 0.957983193277311,
+            "precision": 0.95,
+            "recall": 0.9661016949152542,
+            "support": 59
+        },
+        "Dinophysis_spp": {
+            "class_name": "Dinophysis_spp",
+            "threshold": 0.09748905152082443,
+            "f1": 0.7832817337461301,
+            "precision": 0.7666666666666667,
+            "recall": 0.8006329113924051,
+            "support": 316
+        },
+        "Dinophysis_tripos": {
+            "class_name": "Dinophysis_tripos",
+            "threshold": 0.6136080622673035,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 11
+        },
+        "Ditylum_brightwellii": {
+            "class_name": "Ditylum_brightwellii",
+            "threshold": 0.004449338652193546,
+            "f1": 0.9967105263157895,
+            "precision": 0.9934426229508196,
+            "recall": 1.0,
+            "support": 303
+        },
+        "Dolichospermum_spp_coil": {
+            "class_name": "Dolichospermum_spp_coil",
+            "threshold": 0.36051270365715027,
+            "f1": 0.973015873015873,
+            "precision": 0.9563182527301092,
+            "recall": 0.9903069466882067,
+            "support": 619
+        },
+        "Dolichospermum_spp_filament": {
+            "class_name": "Dolichospermum_spp_filament",
+            "threshold": 0.1936875730752945,
+            "f1": 0.9913419913419913,
+            "precision": 0.9922010398613518,
+            "recall": 0.990484429065744,
+            "support": 2312
+        },
+        "Ebria_tripartita": {
+            "class_name": "Ebria_tripartita",
+            "threshold": 0.8195891976356506,
+            "f1": 0.8571428571428571,
+            "precision": 0.8823529411764706,
+            "recall": 0.8333333333333334,
+            "support": 18
+        },
+        "Echinoderm_larvae": {
+            "class_name": "Echinoderm_larvae",
+            "threshold": 0.9267619252204895,
+            "f1": 0.9024390243902439,
+            "precision": 0.8809523809523809,
+            "recall": 0.925,
+            "support": 40
+        },
+        "Ensiculifera_carinata": {
+            "class_name": "Ensiculifera_carinata",
+            "threshold": 0.20782962441444397,
+            "f1": 0.9056603773584906,
+            "precision": 0.8888888888888888,
+            "recall": 0.9230769230769231,
+            "support": 52
+        },
+        "Eucampia": {
+            "class_name": "Eucampia",
+            "threshold": 0.9934373497962952,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 15
+        },
+        "Euglenophyceae": {
+            "class_name": "Euglenophyceae",
+            "threshold": 0.7842428088188171,
+            "f1": 0.8354430379746836,
+            "precision": 0.8114754098360656,
+            "recall": 0.8608695652173913,
+            "support": 115
+        },
+        "Eutreptiella_braarudii": {
+            "class_name": "Eutreptiella_braarudii",
+            "threshold": 0.670320987701416,
+            "f1": 0.9,
+            "precision": 0.9375,
+            "recall": 0.8653846153846154,
+            "support": 52
+        },
+        "Eutreptiella_sp": {
+            "class_name": "Eutreptiella_sp",
+            "threshold": 0.5884431004524231,
+            "f1": 0.9699115044247788,
+            "precision": 0.958041958041958,
+            "recall": 0.982078853046595,
+            "support": 279
+        },
+        "Fragilaria": {
+            "class_name": "Fragilaria",
+            "threshold": 0.2656111717224121,
+            "f1": 0.95,
+            "precision": 0.95,
+            "recall": 0.95,
+            "support": 20
+        },
+        "Guinardia_delicatula": {
+            "class_name": "Guinardia_delicatula",
+            "threshold": 0.46899664402008057,
+            "f1": 0.9905040175310446,
+            "precision": 0.9941348973607038,
+            "recall": 0.9868995633187773,
+            "support": 687
+        },
+        "Guinardia_flaccida": {
+            "class_name": "Guinardia_flaccida",
+            "threshold": 0.9681265950202942,
+            "f1": 0.9785407725321889,
+            "precision": 1.0,
+            "recall": 0.957983193277311,
+            "support": 119
+        },
+        "Guinardia_striata": {
+            "class_name": "Guinardia_striata",
+            "threshold": 0.8392277956008911,
+            "f1": 0.9931972789115646,
+            "precision": 1.0,
+            "recall": 0.9864864864864865,
+            "support": 74
+        },
+        "Gymnodiniales": {
+            "class_name": "Gymnodiniales",
+            "threshold": 0.34368616342544556,
+            "f1": 0.6545454545454545,
+            "precision": 0.7659574468085106,
+            "recall": 0.5714285714285714,
+            "support": 189
+        },
+        "Gymnodiniales_CC": {
+            "class_name": "Gymnodiniales_CC",
+            "threshold": 0.49788615107536316,
+            "f1": 0.752542372881356,
+            "precision": 0.7254901960784313,
+            "recall": 0.7816901408450704,
+            "support": 142
+        },
+        "Gymnodiniales_CS": {
+            "class_name": "Gymnodiniales_CS",
+            "threshold": 0.3412889540195465,
+            "f1": 0.5229357798165137,
+            "precision": 0.4318181818181818,
+            "recall": 0.6627906976744186,
+            "support": 86
+        },
+        "Gymnodiniales_Eliptical": {
+            "class_name": "Gymnodiniales_Eliptical",
+            "threshold": 0.04057624936103821,
+            "f1": 0.9152542372881356,
+            "precision": 0.9101123595505618,
+            "recall": 0.9204545454545454,
+            "support": 88
+        },
+        "Gymnodiniales_smaller_than_30": {
+            "class_name": "Gymnodiniales_smaller_than_30",
+            "threshold": 0.29254329204559326,
+            "f1": 0.6947368421052632,
+            "precision": 0.6470588235294118,
+            "recall": 0.75,
+            "support": 44
+        },
+        "Gymnodinium_corollarium": {
+            "class_name": "Gymnodinium_corollarium",
+            "threshold": 0.40966033935546875,
+            "f1": 0.9830508474576272,
+            "precision": 1.0,
+            "recall": 0.9666666666666667,
+            "support": 30
+        },
+        "Gyrodinium_heterotropic": {
+            "class_name": "Gyrodinium_heterotropic",
+            "threshold": 0.030086634680628777,
+            "f1": 0.875,
+            "precision": 0.9333333333333333,
+            "recall": 0.8235294117647058,
+            "support": 17
+        },
+        "Gyrosigma_Pleurosigma": {
+            "class_name": "Gyrosigma_Pleurosigma",
+            "threshold": 0.31427547335624695,
+            "f1": 0.9912434325744308,
+            "precision": 0.9895104895104895,
+            "recall": 0.9929824561403509,
+            "support": 285
+        },
+        "Heterocapsa_niei-like": {
+            "class_name": "Heterocapsa_niei-like",
+            "threshold": 0.9780961275100708,
+            "f1": 0.9487179487179487,
+            "precision": 1.0,
+            "recall": 0.9024390243902439,
+            "support": 41
+        },
+        "Heterocapsa_rotundata": {
+            "class_name": "Heterocapsa_rotundata",
+            "threshold": 0.6752724051475525,
+            "f1": 0.9919632606199771,
+            "precision": 0.988558352402746,
+            "recall": 0.9953917050691244,
+            "support": 434
+        },
+        "Heterocyte": {
+            "class_name": "Heterocyte",
+            "threshold": 0.025128278881311417,
+            "f1": 0.9666666666666667,
+            "precision": 0.9508196721311475,
+            "recall": 0.9830508474576272,
+            "support": 59
+        },
+        "Heterosigma-like": {
+            "class_name": "Heterosigma-like",
+            "threshold": 0.24076034128665924,
+            "f1": 0.9894736842105263,
+            "precision": 0.9842931937172775,
+            "recall": 0.9947089947089947,
+            "support": 189
+        },
+        "Kapelodinium_vestifici": {
+            "class_name": "Kapelodinium_vestifici",
+            "threshold": 0.290997177362442,
+            "f1": 0.9743589743589743,
+            "precision": 0.95,
+            "recall": 1.0,
+            "support": 19
+        },
+        "Karenia_mikimotoi-like": {
+            "class_name": "Karenia_mikimotoi-like",
+            "threshold": 0.645340085029602,
+            "f1": 0.7301587301587301,
+            "precision": 0.8214285714285714,
+            "recall": 0.6571428571428571,
+            "support": 35
+        },
+        "Karenia_spp": {
+            "class_name": "Karenia_spp",
+            "threshold": 0.3568711280822754,
+            "f1": 0.9010989010989011,
+            "precision": 0.8631578947368421,
+            "recall": 0.9425287356321839,
+            "support": 87
+        },
+        "Katablepharis_remigera": {
+            "class_name": "Katablepharis_remigera",
+            "threshold": 0.008210834115743637,
+            "f1": 0.7894736842105263,
+            "precision": 0.6818181818181818,
+            "recall": 0.9375,
+            "support": 16
+        },
+        "Katodinium-like": {
+            "class_name": "Katodinium-like",
+            "threshold": 0.1863572746515274,
+            "f1": 0.6071428571428571,
+            "precision": 0.53125,
+            "recall": 0.7083333333333334,
+            "support": 24
+        },
+        "Kryptoperidinium_triquetrum": {
+            "class_name": "Kryptoperidinium_triquetrum",
+            "threshold": 0.0981789231300354,
+            "f1": 0.9721448467966574,
+            "precision": 0.953551912568306,
+            "recall": 0.9914772727272727,
+            "support": 352
+        },
+        "Laboea_strobila": {
+            "class_name": "Laboea_strobila",
+            "threshold": 0.18238556385040283,
+            "f1": 0.935361216730038,
+            "precision": 0.9318181818181818,
+            "recall": 0.9389312977099237,
+            "support": 131
+        },
+        "Lauderia_spp": {
+            "class_name": "Lauderia_spp",
+            "threshold": 0.6967458128929138,
+            "f1": 0.990152193375112,
+            "precision": 0.9946043165467626,
+            "recall": 0.9857397504456328,
+            "support": 561
+        },
+        "Lepidodinium-like": {
+            "class_name": "Lepidodinium-like",
+            "threshold": 0.00532945990562439,
+            "f1": 0.27522935779816515,
+            "precision": 0.17045454545454544,
+            "recall": 0.7142857142857143,
+            "support": 21
+        },
+        "Leptocylindrus_danicus": {
+            "class_name": "Leptocylindrus_danicus",
+            "threshold": 0.8479529619216919,
+            "f1": 0.9180327868852459,
+            "precision": 0.9032258064516129,
+            "recall": 0.9333333333333333,
+            "support": 30
+        },
+        "Leptocylindrus_danicus_Leptocylindrus_minimus": {
+            "class_name": "Leptocylindrus_danicus_Leptocylindrus_minimus",
+            "threshold": 0.7407608032226562,
+            "f1": 0.9856115107913669,
+            "precision": 0.9876416065911432,
+            "recall": 0.9835897435897436,
+            "support": 975
+        },
+        "Licmophora_spp": {
+            "class_name": "Licmophora_spp",
+            "threshold": 0.26653197407722473,
+            "f1": 0.9957627118644068,
+            "precision": 0.9957627118644068,
+            "recall": 0.9957627118644068,
+            "support": 472
+        },
+        "Lingulaulax_polyedra": {
+            "class_name": "Lingulaulax_polyedra",
+            "threshold": 0.3662227690219879,
+            "f1": 0.9943775100401606,
+            "precision": 0.9935794542536116,
+            "recall": 0.9951768488745981,
+            "support": 622
+        },
+        "Melosira_arctica": {
+            "class_name": "Melosira_arctica",
+            "threshold": 0.9939970970153809,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 26
+        },
+        "Meringosphaera_mediterranea": {
+            "class_name": "Meringosphaera_mediterranea",
+            "threshold": 0.9983989596366882,
+            "f1": 0.9965635738831615,
+            "precision": 1.0,
+            "recall": 0.9931506849315068,
+            "support": 146
+        },
+        "Merismopedia_spp": {
+            "class_name": "Merismopedia_spp",
+            "threshold": 0.925312340259552,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 18
+        },
+        "Mesodinium_major": {
+            "class_name": "Mesodinium_major",
+            "threshold": 0.340288907289505,
+            "f1": 0.7540983606557377,
+            "precision": 0.6764705882352942,
+            "recall": 0.8518518518518519,
+            "support": 54
+        },
+        "Mesodinium_rubrum": {
+            "class_name": "Mesodinium_rubrum",
+            "threshold": 0.6908745169639587,
+            "f1": 0.9656301145662848,
+            "precision": 0.9661572052401747,
+            "recall": 0.965103598691385,
+            "support": 917
+        },
+        "Mesodinium_spp": {
+            "class_name": "Mesodinium_spp",
+            "threshold": 0.006300634704530239,
+            "f1": 0.5063291139240507,
+            "precision": 0.39215686274509803,
+            "recall": 0.7142857142857143,
+            "support": 28
+        },
+        "Mesodinium_spp2": {
+            "class_name": "Mesodinium_spp2",
+            "threshold": 0.06029228866100311,
+            "f1": 0.7213114754098361,
+            "precision": 0.5945945945945946,
+            "recall": 0.9166666666666666,
+            "support": 24
+        },
+        "Mesodinium_spp3": {
+            "class_name": "Mesodinium_spp3",
+            "threshold": 0.2315213978290558,
+            "f1": 0.8648648648648649,
+            "precision": 0.8421052631578947,
+            "recall": 0.8888888888888888,
+            "support": 18
+        },
+        "Monoraphidium_spp": {
+            "class_name": "Monoraphidium_spp",
+            "threshold": 0.996239185333252,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 148
+        },
+        "Mussel_larvae": {
+            "class_name": "Mussel_larvae",
+            "threshold": 0.9998794794082642,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 24
+        },
+        "Navicula-like": {
+            "class_name": "Navicula-like",
+            "threshold": 0.917529821395874,
+            "f1": 0.8666666666666667,
+            "precision": 0.896551724137931,
+            "recall": 0.8387096774193549,
+            "support": 31
+        },
+        "Nitzschia_frigida": {
+            "class_name": "Nitzschia_frigida",
+            "threshold": 0.3834404945373535,
+            "f1": 0.987012987012987,
+            "precision": 0.9743589743589743,
+            "recall": 1.0,
+            "support": 38
+        },
+        "Nitzschia_paleacea": {
+            "class_name": "Nitzschia_paleacea",
+            "threshold": 0.8513873219490051,
+            "f1": 0.9473684210526315,
+            "precision": 1.0,
+            "recall": 0.9,
+            "support": 10
+        },
+        "Nodularia_spumigena_coil": {
+            "class_name": "Nodularia_spumigena_coil",
+            "threshold": 0.7664317488670349,
+            "f1": 0.925531914893617,
+            "precision": 0.90625,
+            "recall": 0.9456521739130435,
+            "support": 92
+        },
+        "Nodularia_spumigena_filament": {
+            "class_name": "Nodularia_spumigena_filament",
+            "threshold": 0.525075376033783,
+            "f1": 0.981294964028777,
+            "precision": 0.9855491329479769,
+            "recall": 0.9770773638968482,
+            "support": 349
+        },
+        "Octactis_speculum": {
+            "class_name": "Octactis_speculum",
+            "threshold": 0.4484263062477112,
+            "f1": 0.9974264705882353,
+            "precision": 0.9988954344624448,
+            "recall": 0.9959618208516887,
+            "support": 2724
+        },
+        "Oocystis_spp": {
+            "class_name": "Oocystis_spp",
+            "threshold": 0.6824195384979248,
+            "f1": 0.9963768115942029,
+            "precision": 1.0,
+            "recall": 0.9927797833935018,
+            "support": 277
+        },
+        "Oscillatoriales": {
+            "class_name": "Oscillatoriales",
+            "threshold": 0.5962493419647217,
+            "f1": 0.9994229659549914,
+            "precision": 0.9988465974625144,
+            "recall": 1.0,
+            "support": 866
+        },
+        "Oxytoxum_gracile": {
+            "class_name": "Oxytoxum_gracile",
+            "threshold": 0.9610092043876648,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 40
+        },
+        "Paralia_sulcata": {
+            "class_name": "Paralia_sulcata",
+            "threshold": 0.923823893070221,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 248
+        },
+        "Pauliella_taeniata": {
+            "class_name": "Pauliella_taeniata",
+            "threshold": 0.9774174690246582,
+            "f1": 0.9832535885167464,
+            "precision": 0.9903614457831326,
+            "recall": 0.9762470308788599,
+            "support": 421
+        },
+        "Pauliella_taeniata2": {
+            "class_name": "Pauliella_taeniata2",
+            "threshold": 0.02612539567053318,
+            "f1": 0.7328767123287672,
+            "precision": 0.6331360946745562,
+            "recall": 0.8699186991869918,
+            "support": 123
+        },
+        "Pauliella_taeniata3": {
+            "class_name": "Pauliella_taeniata3",
+            "threshold": 0.1429813951253891,
+            "f1": 0.8076923076923077,
+            "precision": 0.7636363636363637,
+            "recall": 0.8571428571428571,
+            "support": 49
+        },
+        "Pauliella_taeniata4": {
+            "class_name": "Pauliella_taeniata4",
+            "threshold": 0.47679510712623596,
+            "f1": 0.917960088691796,
+            "precision": 0.8808510638297873,
+            "recall": 0.9583333333333334,
+            "support": 216
+        },
+        "Pauliella_taeniata5": {
+            "class_name": "Pauliella_taeniata5",
+            "threshold": 0.7145150899887085,
+            "f1": 0.8157099697885196,
+            "precision": 0.84375,
+            "recall": 0.7894736842105263,
+            "support": 171
+        },
+        "Pauliella_taeniata6": {
+            "class_name": "Pauliella_taeniata6",
+            "threshold": 0.04825710132718086,
+            "f1": 0.8865979381443299,
+            "precision": 0.8431372549019608,
+            "recall": 0.9347826086956522,
+            "support": 92
+        },
+        "Pennales_single": {
+            "class_name": "Pennales_single",
+            "threshold": 0.05359949916601181,
+            "f1": 0.9541666666666667,
+            "precision": 0.9621848739495799,
+            "recall": 0.9462809917355371,
+            "support": 242
+        },
+        "Peridiniales": {
+            "class_name": "Peridiniales",
+            "threshold": 0.5251110196113586,
+            "f1": 0.7777777777777778,
+            "precision": 0.7777777777777778,
+            "recall": 0.7777777777777778,
+            "support": 72
+        },
+        "Peridiniella_catenata_chain": {
+            "class_name": "Peridiniella_catenata_chain",
+            "threshold": 0.029634997248649597,
+            "f1": 0.996742671009772,
+            "precision": 0.9935064935064936,
+            "recall": 1.0,
+            "support": 153
+        },
+        "Peridiniella_catenata_single": {
+            "class_name": "Peridiniella_catenata_single",
+            "threshold": 0.8587256073951721,
+            "f1": 0.9956521739130435,
+            "precision": 0.9956521739130435,
+            "recall": 0.9956521739130435,
+            "support": 230
+        },
+        "Proboscia_alata": {
+            "class_name": "Proboscia_alata",
+            "threshold": 0.9128952622413635,
+            "f1": 0.9626168224299065,
+            "precision": 0.9626168224299065,
+            "recall": 0.9626168224299065,
+            "support": 107
+        },
+        "Prorocentrum_cordatum": {
+            "class_name": "Prorocentrum_cordatum",
+            "threshold": 0.33675268292427063,
+            "f1": 0.988399071925754,
+            "precision": 0.9815668202764977,
+            "recall": 0.9953271028037384,
+            "support": 214
+        },
+        "Prorocentrum_micans": {
+            "class_name": "Prorocentrum_micans",
+            "threshold": 0.30958330631256104,
+            "f1": 0.9845474613686535,
+            "precision": 0.9867256637168141,
+            "recall": 0.9823788546255506,
+            "support": 227
+        },
+        "Prorocentrum_micans_Prorocentrum_triestinum_Prorocentrum_gracile": {
+            "class_name": "Prorocentrum_micans_Prorocentrum_triestinum_Prorocentrum_gracile",
+            "threshold": 0.29920437932014465,
+            "f1": 0.9904030710172744,
+            "precision": 0.9847328244274809,
+            "recall": 0.9961389961389961,
+            "support": 518
+        },
+        "Prorocentrum_triestinum": {
+            "class_name": "Prorocentrum_triestinum",
+            "threshold": 0.9906833171844482,
+            "f1": 0.98125,
+            "precision": 0.9936708860759493,
+            "recall": 0.9691358024691358,
+            "support": 324
+        },
+        "Protoperidinium_bipes": {
+            "class_name": "Protoperidinium_bipes",
+            "threshold": 0.9883507490158081,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 17
+        },
+        "Pseudo-nitzschia_spp": {
+            "class_name": "Pseudo-nitzschia_spp",
+            "threshold": 0.3716232478618622,
+            "f1": 0.9940463065049614,
+            "precision": 0.9964633068081344,
+            "recall": 0.9916410030796304,
+            "support": 2273
+        },
+        "Pseudochattonella-like": {
+            "class_name": "Pseudochattonella-like",
+            "threshold": 0.8626046776771545,
+            "f1": 0.9946524064171123,
+            "precision": 1.0,
+            "recall": 0.9893617021276596,
+            "support": 376
+        },
+        "Pseudopedinella-like": {
+            "class_name": "Pseudopedinella-like",
+            "threshold": 0.2408612072467804,
+            "f1": 0.8322147651006712,
+            "precision": 0.8051948051948052,
+            "recall": 0.8611111111111112,
+            "support": 72
+        },
+        "Pseudosolenia_calcar-avis": {
+            "class_name": "Pseudosolenia_calcar-avis",
+            "threshold": 0.8293104767799377,
+            "f1": 0.9720670391061452,
+            "precision": 0.9666666666666667,
+            "recall": 0.9775280898876404,
+            "support": 178
+        },
+        "Pyramimonas_spp_large": {
+            "class_name": "Pyramimonas_spp_large",
+            "threshold": 0.9815603494644165,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 20
+        },
+        "Pyramimonas_spp_small": {
+            "class_name": "Pyramimonas_spp_small",
+            "threshold": 0.1393204778432846,
+            "f1": 0.9672727272727273,
+            "precision": 0.9614457831325302,
+            "recall": 0.973170731707317,
+            "support": 410
+        },
+        "Rhizosolenia_imbricata": {
+            "class_name": "Rhizosolenia_imbricata",
+            "threshold": 0.9851408004760742,
+            "f1": 0.9819494584837545,
+            "precision": 1.0,
+            "recall": 0.9645390070921985,
+            "support": 141
+        },
+        "Rhizosolenia_spp": {
+            "class_name": "Rhizosolenia_spp",
+            "threshold": 0.6119547486305237,
+            "f1": 0.8549618320610687,
+            "precision": 0.9491525423728814,
+            "recall": 0.7777777777777778,
+            "support": 72
+        },
+        "Scenedesmus_spp": {
+            "class_name": "Scenedesmus_spp",
+            "threshold": 0.6989607810974121,
+            "f1": 0.9090909090909091,
+            "precision": 1.0,
+            "recall": 0.8333333333333334,
+            "support": 18
+        },
+        "Scrippsiella_group": {
+            "class_name": "Scrippsiella_group",
+            "threshold": 0.3674190938472748,
+            "f1": 0.9503430251551781,
+            "precision": 0.9432555123216602,
+            "recall": 0.9575378538512179,
+            "support": 3038
+        },
+        "Skeletonema_spp": {
+            "class_name": "Skeletonema_spp",
+            "threshold": 0.28200677037239075,
+            "f1": 0.9955169134628448,
+            "precision": 0.9943012211668928,
+            "recall": 0.9967355821545157,
+            "support": 3676
+        },
+        "Snowella-Woronichinia2": {
+            "class_name": "Snowella-Woronichinia2",
+            "threshold": 0.8656050562858582,
+            "f1": 0.8406779661016949,
+            "precision": 0.8493150684931506,
+            "recall": 0.8322147651006712,
+            "support": 149
+        },
+        "Snowella_Woronichinia": {
+            "class_name": "Snowella_Woronichinia",
+            "threshold": 0.04610789939761162,
+            "f1": 0.9719753930280246,
+            "precision": 0.9634146341463414,
+            "recall": 0.9806896551724138,
+            "support": 725
+        },
+        "Stephanopyxis-like": {
+            "class_name": "Stephanopyxis-like",
+            "threshold": 0.028203194960951805,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 30
+        },
+        "Striatella_spp": {
+            "class_name": "Striatella_spp",
+            "threshold": 0.9904415607452393,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 67
+        },
+        "Strombidium-like": {
+            "class_name": "Strombidium-like",
+            "threshold": 0.22363410890102386,
+            "f1": 0.9084568439407149,
+            "precision": 0.9076655052264808,
+            "recall": 0.9092495636998255,
+            "support": 573
+        },
+        "Sundstroemia_setigera": {
+            "class_name": "Sundstroemia_setigera",
+            "threshold": 0.8018417954444885,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 13
+        },
+        "Thalassionema_nitzschioides": {
+            "class_name": "Thalassionema_nitzschioides",
+            "threshold": 0.5682217478752136,
+            "f1": 0.9952670723461798,
+            "precision": 0.9986431478968792,
+            "recall": 0.9919137466307277,
+            "support": 742
+        },
+        "Thalassiosira_angulata": {
+            "class_name": "Thalassiosira_angulata",
+            "threshold": 0.1721394807100296,
+            "f1": 0.8758169934640523,
+            "precision": 0.8271604938271605,
+            "recall": 0.9305555555555556,
+            "support": 72
+        },
+        "Thalassiosira_anguste-lineata": {
+            "class_name": "Thalassiosira_anguste-lineata",
+            "threshold": 0.16937288641929626,
+            "f1": 0.9605263157894737,
+            "precision": 0.9358974358974359,
+            "recall": 0.9864864864864865,
+            "support": 74
+        },
+        "Thalassiosira_gravida-like": {
+            "class_name": "Thalassiosira_gravida-like",
+            "threshold": 0.8633840084075928,
+            "f1": 0.9897435897435898,
+            "precision": 0.9914383561643836,
+            "recall": 0.9880546075085325,
+            "support": 586
+        },
+        "Thalassiosira_levanderi": {
+            "class_name": "Thalassiosira_levanderi",
+            "threshold": 0.38353681564331055,
+            "f1": 0.9758713136729222,
+            "precision": 0.9698046181172292,
+            "recall": 0.9820143884892086,
+            "support": 556
+        },
+        "Thalassiosira_nordenskioeldii": {
+            "class_name": "Thalassiosira_nordenskioeldii",
+            "threshold": 0.7778457999229431,
+            "f1": 0.8859649122807017,
+            "precision": 0.926605504587156,
+            "recall": 0.8487394957983193,
+            "support": 119
+        },
+        "Thalassiosira_spp_chain": {
+            "class_name": "Thalassiosira_spp_chain",
+            "threshold": 0.24404633045196533,
+            "f1": 0.9501084598698482,
+            "precision": 0.9563318777292577,
+            "recall": 0.9439655172413793,
+            "support": 232
+        },
+        "Thalassiosira_spp_single": {
+            "class_name": "Thalassiosira_spp_single",
+            "threshold": 0.41780105233192444,
+            "f1": 0.7586206896551724,
+            "precision": 0.7096774193548387,
+            "recall": 0.8148148148148148,
+            "support": 27
+        },
+        "Tintinnids": {
+            "class_name": "Tintinnids",
+            "threshold": 0.8891195058822632,
+            "f1": 0.9047619047619048,
+            "precision": 0.926829268292683,
+            "recall": 0.8837209302325582,
+            "support": 43
+        },
+        "Torodinium_robustum": {
+            "class_name": "Torodinium_robustum",
+            "threshold": 0.8045880198478699,
+            "f1": 0.996309963099631,
+            "precision": 0.9926470588235294,
+            "recall": 1.0,
+            "support": 135
+        },
+        "Trieres_mobiliensis": {
+            "class_name": "Trieres_mobiliensis",
+            "threshold": 0.9638428688049316,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 113
+        },
+        "Tripos_furca": {
+            "class_name": "Tripos_furca",
+            "threshold": 0.5609989762306213,
+            "f1": 0.9743589743589743,
+            "precision": 0.9708029197080292,
+            "recall": 0.9779411764705882,
+            "support": 272
+        },
+        "Tripos_fusus": {
+            "class_name": "Tripos_fusus",
+            "threshold": 0.6955212950706482,
+            "f1": 0.9951456310679612,
+            "precision": 1.0,
+            "recall": 0.9903381642512077,
+            "support": 207
+        },
+        "Tripos_lineatus": {
+            "class_name": "Tripos_lineatus",
+            "threshold": 0.7311176657676697,
+            "f1": 0.9934902353530295,
+            "precision": 0.9939879759519038,
+            "recall": 0.992992992992993,
+            "support": 999
+        },
+        "Tripos_longipes": {
+            "class_name": "Tripos_longipes",
+            "threshold": 0.961148738861084,
+            "f1": 0.9491525423728814,
+            "precision": 0.9655172413793104,
+            "recall": 0.9333333333333333,
+            "support": 30
+        },
+        "Tripos_muelleri": {
+            "class_name": "Tripos_muelleri",
+            "threshold": 0.11886073648929596,
+            "f1": 0.9668874172185431,
+            "precision": 0.948051948051948,
+            "recall": 0.9864864864864865,
+            "support": 74
+        },
+        "Unicells": {
+            "class_name": "Unicells",
+            "threshold": 0.7224148511886597,
+            "f1": 0.9628591450595655,
+            "precision": 0.9730878186968839,
+            "recall": 0.9528432732316228,
+            "support": 721
+        },
+        "Uroglenopsis_sp": {
+            "class_name": "Uroglenopsis_sp",
+            "threshold": 0.5736541152000427,
+            "f1": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "support": 113
+        },
+        "Warnowia-like": {
+            "class_name": "Warnowia-like",
+            "threshold": 0.21032926440238953,
+            "f1": 0.9795918367346939,
+            "precision": 0.972972972972973,
+            "recall": 0.9863013698630136,
+            "support": 146
+        },
+        "Zooplankton": {
+            "class_name": "Zooplankton",
+            "threshold": 0.45713064074516296,
+            "f1": 0.9672544080604534,
+            "precision": 0.9696969696969697,
+            "recall": 0.964824120603015,
+            "support": 199
+        },
+        "mixed": {
+            "class_name": "mixed",
+            "threshold": 0.6437013745307922,
+            "f1": 0.6582278481012658,
+            "precision": 0.7027027027027027,
+            "recall": 0.6190476190476191,
+            "support": 84
+        }
+    },
+    "macro_F1": 0.9260269035089871,
+    "weighted_F1": 0.970099487512511
+}
