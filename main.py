@@ -8,7 +8,7 @@ import gradio as gr
 from PIL import Image
 
 from model import (
-    predict, predict_html, predict_scores, render_predictions,
+    predict_html, predict_scores, render_predictions,
     build_about_markdown, get_thresholds,
     AVAILABLE_MODELS, DEFAULT_MODEL,
 )
@@ -19,27 +19,12 @@ from session import (
     IMAGE_EXTENSIONS, IMAGES_PER_PAGE,
     MAX_ZIP_BYTES, MAX_ZIP_FILES, MAX_SINGLE_FILE_BYTES,
 )
+from viewer import display_image, image_to_classify
 
 
 _pyproject = os.path.join(os.path.dirname(os.path.abspath(__file__)), "pyproject.toml")
 with open(_pyproject, "rb") as _f:
     VERSION = tomllib.load(_f)["project"]["version"]
-
-
-MAX_DISPLAY_SCALE = 3
-DISPLAY_TARGET = 400
-
-
-def display_image(img):
-    """Upscale a small image for display, capped at MAX_DISPLAY_SCALE."""
-    if img is None:
-        return img
-    w, h = img.size
-    scale = min(MAX_DISPLAY_SCALE, DISPLAY_TARGET / max(w, h, 1))
-    if scale > 1:
-        new_w, new_h = int(w * scale), int(h * scale)
-        return img.resize((new_w, new_h), Image.NEAREST)
-    return img
 
 
 # --- Event handlers ---
@@ -68,8 +53,17 @@ def clear_session(session):
         None, gr.Gallery(value=[], selected_index=None), page, "No images uploaded",
         gr.Image(value=None, label="Upload image"),
         render_predictions({}), gr.Textbox(value="", visible=False),
-        gr.Button(interactive=False), gr.Button(interactive=False),
+        gr.Button(interactive=False), gr.Button(interactive=False), None,
     )
+
+
+async def classify_current(original, shown, model_name):
+    """Classify the image as it was uploaded, not the upscaled copy on display."""
+    return await predict_html(image_to_classify(original, shown), model_name)
+
+
+def forget_image():
+    return None, render_predictions({}), gr.Textbox(value="", visible=False)
 
 
 def nav_buttons(session, page):
@@ -83,16 +77,16 @@ def nav_buttons(session, page):
 async def handle_image_upload(image, session, page, sort_by_dim, model_name):
     if image is None:
         prev, nxt = nav_buttons(session, page)
-        return session, gr.Image(label="Upload image"), gallery_page(session, page, sort_by_dim), page, page_info_text(session, page), prev, nxt, render_predictions({}), gr.Textbox(value="", visible=False)
+        return session, gr.Image(label="Upload image"), gallery_page(session, page, sort_by_dim), page, page_info_text(session, page), prev, nxt, render_predictions({}), gr.Textbox(value="", visible=False), None
     original_name = ""
     if hasattr(image, "filename") and image.filename:
         original_name = os.path.basename(image.filename)
     session = save_image(image, session, original_name)
     page = 0
-    preds = await predict(image, model_name=model_name)
+    prediction_html = await predict_html(image, model_name=model_name)
     prev, nxt = nav_buttons(session, page)
     label = os.path.splitext(original_name)[0] if original_name else "Upload image"
-    return session, gr.Image(value=display_image(image), label=label), gallery_page(session, page, sort_by_dim), page, page_info_text(session, page), prev, nxt, render_predictions(preds, model_name=model_name), gr.Textbox(value=label if label != "Upload image" else "", visible=label != "Upload image")
+    return session, gr.Image(value=display_image(image), label=label), gallery_page(session, page, sort_by_dim), page, page_info_text(session, page), prev, nxt, prediction_html, gr.Textbox(value=label if label != "Upload image" else "", visible=label != "Upload image"), image
 
 
 async def handle_zip_upload(zip_path, session, page, sort_by_dim, progress=gr.Progress(track_tqdm=False)):
@@ -144,14 +138,14 @@ def on_gallery_select(session, page, sort_by_dim, evt: gr.SelectData):
     indices = sorted_indices(session, sort_by_dim)
     pos = page * IMAGES_PER_PAGE + evt.index
     if pos < 0 or pos >= len(indices):
-        return gr.Image(value=None, label="Upload image"), gr.Textbox(value="", visible=False)
+        return gr.Image(value=None, label="Upload image"), gr.Textbox(value="", visible=False), None
     idx = indices[pos]
     paths = session["paths"]
     names = session.get("names", [])
     img = Image.open(paths[idx])
     name = names[idx] if idx < len(names) else ""
     label = os.path.splitext(name)[0] if name else "Upload image"
-    return gr.Image(value=display_image(img), label=label), gr.Textbox(value=label if label != "Upload image" else "", visible=label != "Upload image")
+    return gr.Image(value=display_image(img), label=label), gr.Textbox(value=label if label != "Upload image" else "", visible=label != "Upload image"), img
 
 
 def go_prev(session, page, sort_by_dim):
@@ -297,6 +291,37 @@ css = """
     opacity: 0.5;
     text-align: center;
     padding: 2em 0;
+}
+/* Both colours must come from variables that flip with the theme. Gradio's
+   --neutral-* are fixed palette values, and in dark mode --body-text-color is
+   --neutral-100 — so a --neutral-100 background painted the text in exactly its
+   own colour and the box read as empty. */
+.pred-resolved {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    padding: 8px 10px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    background: var(--background-fill-secondary, #f3f4f6);
+    color: var(--body-text-color, inherit);
+    border-left: 3px solid var(--color-accent, #3b82f6);
+}
+.pred-resolved-label {
+    font-size: 0.8em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    opacity: 0.6;
+}
+.pred-resolved-value {
+    font-weight: 600;
+}
+.pred-resolved-none {
+    border-left-color: #9ca3af;
+}
+.pred-resolved-none .pred-resolved-value {
+    font-style: italic;
+    opacity: 0.7;
 }
 .pred-row {
     margin-bottom: 10px;
@@ -447,6 +472,9 @@ with gr.Blocks(title="IFCB Plankton Classifier") as app:
     session = gr.State(None)
     page = gr.State(0)
     zip_file = gr.State(None)
+    # The image exactly as it arrived. The viewer holds a nearest-neighbour
+    # upscale of it, which must not be what gets classified — see display_image.
+    original_image = gr.State(None)
 
     gr.HTML(
         "<h1 class='main-title'>IFCB Plankton Classifier</h1>"
@@ -536,66 +564,86 @@ with gr.Blocks(title="IFCB Plankton Classifier") as app:
     classify_btn.click(
         fn=disable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
     ).then(
-        fn=predict_html,
-        inputs=[image_input, model_dropdown],
+        fn=classify_current,
+        inputs=[original_image, image_input, model_dropdown],
         outputs=[label_output],
+        api_name=False,
     ).then(
         fn=enable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
     )
     image_input.upload(
         fn=disable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
     ).then(
         fn=handle_image_upload,
         inputs=[image_input, session, page, sort_by_dim, model_dropdown],
-        outputs=[session, image_input, gallery, page, page_info, prev_btn, next_btn, label_output, filename_box],
+        outputs=[session, image_input, gallery, page, page_info, prev_btn, next_btn, label_output, filename_box, original_image],
+        api_name=False,
     ).then(
         fn=enable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
+    )
+    image_input.clear(
+        fn=forget_image,
+        outputs=[original_image, label_output, filename_box],
+        api_name=False,
     )
     zip_btn.upload(
         fn=capture_zip_and_disable,
         inputs=[zip_btn],
         outputs=[zip_file, classify_btn, zip_btn, zip_status],
+        api_name=False,
     ).then(
         fn=handle_zip_upload,
         inputs=[zip_file, session, page, sort_by_dim],
         outputs=[session, gallery, page, page_info, prev_btn, next_btn, zip_status],
+        api_name=False,
     ).then(
         fn=enable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
         js="() => { const cb = document.querySelector('#classify-btn button'); const zb = document.querySelector('#zip-btn button'); if (cb) cb.style.opacity = ''; if (zb) zb.style.opacity = ''; }",
     )
     clear_btn.click(
         fn=clear_session,
         inputs=[session],
-        outputs=[session, gallery, page, page_info, image_input, label_output, filename_box, prev_btn, next_btn],
+        outputs=[session, gallery, page, page_info, image_input, label_output, filename_box, prev_btn, next_btn, original_image],
+        api_name=False,
     )
     gallery.select(
         fn=on_gallery_select,
         inputs=[session, page, sort_by_dim],
-        outputs=[image_input, filename_box],
+        outputs=[image_input, filename_box, original_image],
+        api_name=False,
     ).then(
         fn=predict_html,
-        inputs=[image_input, model_dropdown],
+        inputs=[original_image, model_dropdown],
         outputs=[label_output],
+        api_name=False,
     )
     prev_btn.click(
         fn=go_prev,
         inputs=[session, page, sort_by_dim],
         outputs=[gallery, page, page_info, prev_btn, next_btn],
+        api_name=False,
     )
     next_btn.click(
         fn=go_next,
         inputs=[session, page, sort_by_dim],
         outputs=[gallery, page, page_info, prev_btn, next_btn],
+        api_name=False,
     )
     sort_by_dim.change(
         fn=on_sort_change,
         inputs=[session, sort_by_dim],
         outputs=[gallery, page, page_info, prev_btn, next_btn],
+        api_name=False,
     )
 
     with gr.Accordion("About", open=False):
@@ -605,9 +653,37 @@ with gr.Blocks(title="IFCB Plankton Classifier") as app:
         fn=update_about,
         inputs=[model_dropdown],
         outputs=[about_md],
+        api_name=False,
     )
 
-    # --- API-only endpoint (not visible in the UI) ---
+    # --- Published API ---
+    #
+    # These three endpoints are the contract other tools are written against —
+    # iRfcb's ifcb_classify_images() posts to /predict_html and /get_thresholds —
+    # so they are declared here with their own hidden components rather than
+    # picked up from whichever UI listener happens to be named after them. Every
+    # listener above passes api_name=False for the same reason: /predict_html was
+    # once generated from the gallery-click handler, and rerouting that handler to
+    # read a gr.State (which Gradio omits from the API) silently dropped the image
+    # argument from a signature external callers depend on.
+
+    # --- API-only endpoint: predict_html (rendered prediction panel) ---
+    html_image = gr.Image(type="pil", visible=False)
+    html_model = gr.Dropdown(
+        choices=list(AVAILABLE_MODELS.keys()),
+        value=DEFAULT_MODEL,
+        visible=False,
+    )
+    html_output = gr.HTML(visible=False)
+    html_btn = gr.Button(visible=False)
+    html_btn.click(
+        fn=predict_html,
+        inputs=[html_image, html_model],
+        outputs=[html_output],
+        api_name="predict_html",
+    )
+
+    # --- API-only endpoint: get_thresholds ---
     thresholds_btn = gr.Button(visible=False)
     thresholds_model = gr.Dropdown(
         choices=list(AVAILABLE_MODELS.keys()),
@@ -638,11 +714,12 @@ with gr.Blocks(title="IFCB Plankton Classifier") as app:
         api_name="predict_scores",
     )
 
-app.launch(
-    server_name="0.0.0.0",
-    server_port=7860,
-    theme=theme,
-    css=css,
-    js=init_js,
-    max_file_size="50mb",
-)
+if __name__ == "__main__":
+    app.launch(
+        server_name="0.0.0.0",
+        server_port=7860,
+        theme=theme,
+        css=css,
+        js=init_js,
+        max_file_size="50mb",
+    )
