@@ -43,24 +43,34 @@ def _reachable_from_entry_point():
     return seen
 
 
-def test_dockerfile_copies_every_module_the_app_imports():
+def _copied_sources():
+    """The source paths every COPY instruction names, ignoring flags and the destination."""
     dockerfile = open(os.path.join(APP_DIR, "Dockerfile")).read()
+
+    sources = set()
+    for line in dockerfile.splitlines():
+        if not line.startswith("COPY "):
+            continue
+        arguments = [a for a in line.split()[1:] if not a.startswith("--")]
+        sources.update(arguments[:-1])  # the last argument is the destination
+    return sources
+
+
+def test_dockerfile_copies_every_module_the_app_imports():
+    copied = _copied_sources()
 
     missing = sorted(
         module for module in _reachable_from_entry_point()
-        if f"COPY {module}.py" not in dockerfile
+        if f"{module}.py" not in copied
     )
 
     assert not missing, f"Dockerfile has no COPY line for: {', '.join(missing)}"
 
 
 def test_dockerfile_does_not_copy_modules_that_no_longer_exist():
-    dockerfile = open(os.path.join(APP_DIR, "Dockerfile")).read()
-
-    stale = [
-        line.split()[1] for line in dockerfile.splitlines()
-        if line.startswith("COPY ") and line.split()[1].endswith(".py")
-        and not os.path.exists(os.path.join(APP_DIR, line.split()[1]))
-    ]
+    stale = sorted(
+        source for source in _copied_sources()
+        if source.endswith(".py") and not os.path.exists(os.path.join(APP_DIR, source))
+    )
 
     assert not stale, f"Dockerfile copies files that are gone: {', '.join(stale)}"

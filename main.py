@@ -292,6 +292,10 @@ css = """
     text-align: center;
     padding: 2em 0;
 }
+/* Both colours must come from variables that flip with the theme. Gradio's
+   --neutral-* are fixed palette values, and in dark mode --body-text-color is
+   --neutral-100 — so a --neutral-100 background painted the text in exactly its
+   own colour and the box read as empty. */
 .pred-resolved {
     display: flex;
     align-items: baseline;
@@ -299,7 +303,8 @@ css = """
     padding: 8px 10px;
     margin-bottom: 12px;
     border-radius: 6px;
-    background: var(--neutral-100, #f3f4f6);
+    background: var(--background-fill-secondary, #f3f4f6);
+    color: var(--body-text-color, inherit);
     border-left: 3px solid var(--color-accent, #3b82f6);
 }
 .pred-resolved-label {
@@ -559,70 +564,86 @@ with gr.Blocks(title="IFCB Plankton Classifier") as app:
     classify_btn.click(
         fn=disable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
     ).then(
         fn=classify_current,
         inputs=[original_image, image_input, model_dropdown],
         outputs=[label_output],
+        api_name=False,
     ).then(
         fn=enable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
     )
     image_input.upload(
         fn=disable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
     ).then(
         fn=handle_image_upload,
         inputs=[image_input, session, page, sort_by_dim, model_dropdown],
         outputs=[session, image_input, gallery, page, page_info, prev_btn, next_btn, label_output, filename_box, original_image],
+        api_name=False,
     ).then(
         fn=enable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
     )
     image_input.clear(
         fn=forget_image,
         outputs=[original_image, label_output, filename_box],
+        api_name=False,
     )
     zip_btn.upload(
         fn=capture_zip_and_disable,
         inputs=[zip_btn],
         outputs=[zip_file, classify_btn, zip_btn, zip_status],
+        api_name=False,
     ).then(
         fn=handle_zip_upload,
         inputs=[zip_file, session, page, sort_by_dim],
         outputs=[session, gallery, page, page_info, prev_btn, next_btn, zip_status],
+        api_name=False,
     ).then(
         fn=enable_actions,
         outputs=[classify_btn, zip_btn],
+        api_name=False,
         js="() => { const cb = document.querySelector('#classify-btn button'); const zb = document.querySelector('#zip-btn button'); if (cb) cb.style.opacity = ''; if (zb) zb.style.opacity = ''; }",
     )
     clear_btn.click(
         fn=clear_session,
         inputs=[session],
         outputs=[session, gallery, page, page_info, image_input, label_output, filename_box, prev_btn, next_btn, original_image],
+        api_name=False,
     )
     gallery.select(
         fn=on_gallery_select,
         inputs=[session, page, sort_by_dim],
         outputs=[image_input, filename_box, original_image],
+        api_name=False,
     ).then(
         fn=predict_html,
         inputs=[original_image, model_dropdown],
         outputs=[label_output],
+        api_name=False,
     )
     prev_btn.click(
         fn=go_prev,
         inputs=[session, page, sort_by_dim],
         outputs=[gallery, page, page_info, prev_btn, next_btn],
+        api_name=False,
     )
     next_btn.click(
         fn=go_next,
         inputs=[session, page, sort_by_dim],
         outputs=[gallery, page, page_info, prev_btn, next_btn],
+        api_name=False,
     )
     sort_by_dim.change(
         fn=on_sort_change,
         inputs=[session, sort_by_dim],
         outputs=[gallery, page, page_info, prev_btn, next_btn],
+        api_name=False,
     )
 
     with gr.Accordion("About", open=False):
@@ -632,9 +653,37 @@ with gr.Blocks(title="IFCB Plankton Classifier") as app:
         fn=update_about,
         inputs=[model_dropdown],
         outputs=[about_md],
+        api_name=False,
     )
 
-    # --- API-only endpoint (not visible in the UI) ---
+    # --- Published API ---
+    #
+    # These three endpoints are the contract other tools are written against —
+    # iRfcb's ifcb_classify_images() posts to /predict_html and /get_thresholds —
+    # so they are declared here with their own hidden components rather than
+    # picked up from whichever UI listener happens to be named after them. Every
+    # listener above passes api_name=False for the same reason: /predict_html was
+    # once generated from the gallery-click handler, and rerouting that handler to
+    # read a gr.State (which Gradio omits from the API) silently dropped the image
+    # argument from a signature external callers depend on.
+
+    # --- API-only endpoint: predict_html (rendered prediction panel) ---
+    html_image = gr.Image(type="pil", visible=False)
+    html_model = gr.Dropdown(
+        choices=list(AVAILABLE_MODELS.keys()),
+        value=DEFAULT_MODEL,
+        visible=False,
+    )
+    html_output = gr.HTML(visible=False)
+    html_btn = gr.Button(visible=False)
+    html_btn.click(
+        fn=predict_html,
+        inputs=[html_image, html_model],
+        outputs=[html_output],
+        api_name="predict_html",
+    )
+
+    # --- API-only endpoint: get_thresholds ---
     thresholds_btn = gr.Button(visible=False)
     thresholds_model = gr.Dropdown(
         choices=list(AVAILABLE_MODELS.keys()),
